@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <input type="text" name="word"/>
+        <button>Search</button>
+        <div id="response"></div>
+    </body>
+    <script type="text/javascript">
+        let search = document.querySelector('button');
+        let output = document.querySelector("#response");
+        var httpRequest = new XMLHttpRequest();
+        search.addEventListener('click', function() {
+            console.log("button clicked");
+            // let word = document.querySelector("input").textContent;
+            let word = 'definition';
+            // var httpRequest = new XMLHttpRequest();
+            var url = "https://info2180-lab6-nnawdr.c9users.io/request.php";
+            url += `?q=${word}`;
+            httpRequest.onreadystatechange = getResponse;
+            httpRequest.open('GET', url);
+            httpRequest.send();
+        });
+        
+        function getResponse() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    var response = httpRequest.responseText;
+                    response.innnerHtml = response;
+                    alert(response);
+                } else {
+                    alert('There was a problem with the request.');
+                }
+            }
+        }
+    </script>
+</html>
