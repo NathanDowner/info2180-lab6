@@ -13,8 +13,8 @@
             <form>
                 <input type="text" name="word"/> 
                 <button id="search">Search</button>
+                <button id="search-all">Get All Definitions</button>
             </form>
-            
             <hr>
             <section>
                 <h3>Result</h3>
@@ -25,31 +25,36 @@
         
         
         <script type="text/javascript">
-        let search = document.querySelector('button#search');
-        let result = document.querySelector("#result");
-        var httpRequest = new XMLHttpRequest();
-        search.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log("button clicked");
-            let word = document.querySelector("input").value;
-            var url = "https://info2180-lab6-nnawdr.c9users.io/request.php";
-            url += `?q=${word}`;
-            httpRequest.onreadystatechange = getResponse;
-            httpRequest.open('GET', url);
-            httpRequest.send();
-        });
-        
-        function getResponse() {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    var response = httpRequest.responseText;
-                    result.innerHTML = response;
-                   // alert(response);
-                } else {
-                    alert('There was a problem with the request.');
+            const search = document.querySelector('button#search');
+            const result = document.querySelector("#result");
+            const all = document.querySelector("#search-all");
+            var httpRequest = new XMLHttpRequest();
+            
+            search.addEventListener('click', function(e) {
+                e.preventDefault();
+                let word = document.querySelector("input").value;
+                // var url = "https://info2180-lab6-nnawdr.c9users.io/request.php";
+                httpRequest.onreadystatechange = getResponse;
+                httpRequest.open('GET', `./request.php?q=${word}`);
+                httpRequest.send();
+            });
+            
+            all.addEventListener('click', function(e) {
+                e. preventDefault();
+                httpRequest.onreadystatechange = getResponse;
+                httpRequest.open('GET', `./request.php?q=&all=true`);
+                httpRequest.send();
+            });
+            
+            function getResponse() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        result.innerHTML = httpRequest.responseText;
+                    } else {
+                        alert('There was a problem with the request.');
+                    }
                 }
             }
-        }
-    </script>
+        </script>
     </body>
 </html>
