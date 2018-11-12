@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> </title>
+        <title>Dictionary Look up </title>
     </head>
     <body>
-        <input type="text" name="word"/>
-        <button>Search</button>
+        <header>
+            <h1>Web Dictionary</h1>
+        </header>
+        <main>
+            <p>Lookup the definition of a word (e.g. ajax, html, bar, php, javascript or css)</p>
+            <form>
+                <input type="text" name="word"/>
+                <input type="submit" value="Search"/>
+            </form>
+            <hr>
+            <section>
+                <h3>Result</h3>
+                <div id="result"></div>
+            </section>
+        </main>
         <div id="response"></div>
-    </body>
-    <script type="text/javascript">
+        
+        
+        <script type="text/javascript">
         let search = document.querySelector('button');
         let output = document.querySelector("#response");
         var httpRequest = new XMLHttpRequest();
@@ -36,4 +50,5 @@
             }
         }
     </script>
+    </body>
 </html>
