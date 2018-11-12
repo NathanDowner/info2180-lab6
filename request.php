@@ -4,6 +4,7 @@
 // respond with a value
 
 $query = $_GET['q'];
+
 $definition = [
     "definition" => "A statement of the exact meaning of a word, especially in a dictionary.",
     "bar" => "A place that sells alcholic beverages",
@@ -14,5 +15,12 @@ $definition = [
     "php" => "A server-side scripting language, and a powerful tool for making dynamic and interactive websites",
 ];
 
-print "<h3>" . strtoupper($query) . "</h3>";
-print "<p>" . $definition[$query] . "</p>";
+if ($query === "" and $_GET['all'] == true) {
+    foreach($definition as $d => $def) {
+        print "<h3>". strtoupper($d) ."</h3>";
+        print "<p>". $def ."</p>";
+    }
+} else {
+    print "<h3>" . strtoupper($query) . "</h3>";
+    print "<p>" . $definition[$query] . "</p>";
+}

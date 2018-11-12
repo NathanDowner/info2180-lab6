@@ -23,7 +23,6 @@
         </main>
         <div id="response"></div>
         
-        
         <script type="text/javascript">
             const search = document.querySelector('button#search');
             const result = document.querySelector("#result");
@@ -40,7 +39,7 @@
             });
             
             all.addEventListener('click', function(e) {
-                e. preventDefault();
+                e.preventDefault();
                 httpRequest.onreadystatechange = getResponse;
                 httpRequest.open('GET', `./request.php?q=&all=true`);
                 httpRequest.send();
