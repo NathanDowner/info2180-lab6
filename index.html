@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Dictionary Look up </title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
     </head>
     <body>
         <header>
@@ -40,7 +41,14 @@
             
             all.addEventListener('click', function(e) {
                 e.preventDefault();
-                httpRequest.onreadystatechange = getResponse;
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            let xmlRes = httpRequest.responseXML;
+                            console.log(xmlRes);
+                        }
+                    }
+                };
                 httpRequest.open('GET', `./request.php?q=&all=true`);
                 httpRequest.send();
             });
@@ -49,6 +57,7 @@
                 if (httpRequest.readyState === XMLHttpRequest.DONE) {
                     if (httpRequest.status === 200) {
                         result.innerHTML = httpRequest.responseText;
+                        let output = document.createElement("ol")
                     } else {
                         alert('There was a problem with the request.');
                     }
