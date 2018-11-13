@@ -18,7 +18,7 @@
             </form>
             <hr>
             <section>
-                <h3>Result</h3>
+                <h1>Result</h1>
                 <div id="result"></div>
             </section>
         </main>
@@ -45,7 +45,24 @@
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
                             let xmlRes = httpRequest.responseXML;
-                            console.log(xmlRes);
+                            let output = document.createElement("ol");
+                            let txt = "";
+                            let documents = xmlRes.getElementsByTagName('definition');
+                            for(let i=0; i<documents.length; i++) {
+                                txt += `
+                                <li>
+                                    <h3>${documents[i].getAttribute('name').toUpperCase()}</h3>
+                                    <p>${documents[i].textContent}</p>
+                                    <p> -${documents[i].getAttribute('author').toUpperCase()}</p>
+                                </li>`;
+                            }
+                            
+                            output.innerHTML = txt;
+                            result.innerHTML = '';
+                            result.appendChild(output);
+                            
+                        } else {
+                            alert("Theres a problem with the request");
                         }
                     }
                 };
@@ -57,7 +74,6 @@
                 if (httpRequest.readyState === XMLHttpRequest.DONE) {
                     if (httpRequest.status === 200) {
                         result.innerHTML = httpRequest.responseText;
-                        let output = document.createElement("ol")
                     } else {
                         alert('There was a problem with the request.');
                     }

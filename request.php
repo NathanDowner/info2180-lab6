@@ -21,22 +21,22 @@ if ($query === "" and $_GET['all'] == true) {
     //     print "<p>". $def ."</p>";
     $xmldata = '<?xml version="1.0" encoding="UTF-8"?>
     <entries>
-        <definition name="definition" author="John">
+        <definition name="definition" author="James">
             A statement of the exact meaning of a word, especially in a dictionary.
         </definition>
         <definition name="bar" author="John">
            A place that sells alcholic beverages
         </definition>
-        <definition name="ajax" author="John">
+        <definition name="ajax" author="Mary">
            Technique which involves the use of javascript and xml (or JSON)
         </definition>
-        <definition name="html" author="John">
+        <definition name="html" author="Jeff">
            The standard markup language for creating web pages and web applications.
         </definition>
-        <definition name="css" author="John">
+        <definition name="css" author="Jason">
            A style sheet language used for describing the presentation of a document written in a markup language.
         </definition>
-        <definition name="javascript" author="John">
+        <definition name="javascript" author="Jake">
            A lightweight, interpreted programming language with first-class functions that adds interactivity to your website.
         </definition>
         <definition name="php" author="John">
