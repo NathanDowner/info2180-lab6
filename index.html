@@ -3,6 +3,7 @@
     <head>
         <title>Dictionary Look up </title>
         <link rel="stylesheet" href="style.css" type="text/css" />
+        <script type="text/javascript" src="app.js"></script>
     </head>
     <body>
         <header>
@@ -12,73 +13,15 @@
             <p>Lookup the definition of a word (e.g. ajax, html, bar, php, javascript or css)</p>
             
             <form>
-                <input type="text" name="word"/> 
-                <button id="search">Search</button>
-                <button id="search-all">Get All Definitions</button>
+                <input type="text" name="word" placeholder="Enter search term"/> 
+                <a id="search" class="btn">Search</a>
+                <a id="search-all" class="btn">Get All Definitions</a>
             </form>
             <hr>
             <section>
-                <h1>Result</h1>
+                <h1 id="res">Result</h1>
                 <div id="result"></div>
             </section>
         </main>
-        <div id="response"></div>
-        
-        <script type="text/javascript">
-            const search = document.querySelector('button#search');
-            const result = document.querySelector("#result");
-            const all = document.querySelector("#search-all");
-            var httpRequest = new XMLHttpRequest();
-            
-            search.addEventListener('click', function(e) {
-                e.preventDefault();
-                let word = document.querySelector("input").value;
-                // var url = "https://info2180-lab6-nnawdr.c9users.io/request.php";
-                httpRequest.onreadystatechange = getResponse;
-                httpRequest.open('GET', `./request.php?q=${word}`);
-                httpRequest.send();
-            });
-            
-            all.addEventListener('click', function(e) {
-                e.preventDefault();
-                httpRequest.onreadystatechange = function () {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            let xmlRes = httpRequest.responseXML;
-                            let output = document.createElement("ol");
-                            let txt = "";
-                            let documents = xmlRes.getElementsByTagName('definition');
-                            for(let i=0; i<documents.length; i++) {
-                                txt += `
-                                <li>
-                                    <h3>${documents[i].getAttribute('name').toUpperCase()}</h3>
-                                    <p>${documents[i].textContent}</p>
-                                    <p> -${documents[i].getAttribute('author').toUpperCase()}</p>
-                                </li>`;
-                            }
-                            
-                            output.innerHTML = txt;
-                            result.innerHTML = '';
-                            result.appendChild(output);
-                            
-                        } else {
-                            alert("Theres a problem with the request");
-                        }
-                    }
-                };
-                httpRequest.open('GET', `./request.php?q=&all=true`);
-                httpRequest.send();
-            });
-            
-            function getResponse() {
-                if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                    if (httpRequest.status === 200) {
-                        result.innerHTML = httpRequest.responseText;
-                    } else {
-                        alert('There was a problem with the request.');
-                    }
-                }
-            }
-        </script>
     </body>
 </html>
